@@ -6,6 +6,7 @@ import '../pages/score_page.dart';
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+//tests
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
