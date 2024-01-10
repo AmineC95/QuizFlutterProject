@@ -25,4 +25,13 @@ class Question {
       answers: answers,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'label': label,
+      'correct_answer_id': correctAnswerId,
+      'answers': answers.map((answer) => answer.toJson()).toList(),
+    };
+  }
 }

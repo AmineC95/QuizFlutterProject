@@ -10,4 +10,11 @@ class Answer {
       label: json['label'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'label': label,
+    };
+  }
 }
