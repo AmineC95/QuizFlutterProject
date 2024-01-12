@@ -5,10 +5,8 @@ import '../models/question.dart';
 class DatabaseManager {
   static Database? _database;
 
-  // Getter pour obtenir l'instance de la base de données
   Future<Database> get database async {
     if (_database != null) return _database!;
-    // Initialiser la base de données si elle n'est pas déjà initialisée
     _database = await initDB();
     return _database!;
   }
@@ -20,13 +18,13 @@ class DatabaseManager {
 
     return await openDatabase(
       path,
-      version: 2, // Augmenter la version pour forcer l'exécution de onCreate
+      version: 2,
       onCreate: (db, version) async {
-        // Créer la table des questions
+        // Table des questions
         await db.execute(
           'CREATE TABLE questions(id INTEGER PRIMARY KEY, label TEXT, correct_answer_id INTEGER, answers TEXT)',
         );
-        // Créer une table pour stocker les métadonnées comme le dernier temps de mise à jour
+        // Table pour stocker le dernier temps de mise à jour
         await db.execute(
           'CREATE TABLE meta(id INTEGER PRIMARY KEY, last_update TEXT)',
         );
@@ -55,14 +53,12 @@ class DatabaseManager {
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
-    // Mise à jour du dernier temps de mise à jour après le stockage des questions
     await updateLastUpdateTime();
   }
 
 // Récupérer les questions de la base de données
   Future<List<Question>> fetchQuestionsFromDB() async {
     final db = await database;
-    // Utilisation de la commande SELECT de manière implicite
     final List<Map<String, dynamic>> maps = await db.query('questions');
 
     return List<Question>.from(maps.map((map) => Question.fromMap(map)));
